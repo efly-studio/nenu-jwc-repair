@@ -1,2 +1,1 @@
-# nenu_jwc_polyfill
-东北师范大学教务处网站polyfill
+东北师范大学教务处网站 chrome 修复插件
