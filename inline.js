@@ -1,27 +1,9 @@
-document.selection = window.getSelection()
+document.selection = window.getSelection();
 Object.defineProperties(window, {
   'send_request': {
     writable: false,
     value: function(url, SystemBh) {
-      http_request = false;
-      if (window.XMLHttpRequest) {
-        http_request = new XMLHttpRequest();
-        if (http_request.overrideMimeType) {
-          http_request.overrideMimeType("text/xml");
-        }
-      } else if (window.ActiveXObject) {
-        try {
-          http_request = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-          try {
-            http_request = new ActiveXObject("Microsoft.XMLHTTP");
-          } catch (ei) {}
-        }
-      }
-      if (!http_request) {
-        window.alert("不能创建对象!");
-        return false;
-      }
+      http_request = new XMLHttpRequest();
 
       try {
         http_request.open("POST", url, false);
@@ -29,7 +11,6 @@ Object.defineProperties(window, {
         http_request.send(null);
 
         var tmpxml = http_request.responseXML;
-        //加载顶层菜单开始
         var topXml = tmpxml.getElementsByTagName("topMenus")[0].getElementsByTagName("Menu");
         for (i = 0; i < topXml.length; i++) {
           topMenuItems[topMenuLength] = new Array();
@@ -42,9 +23,7 @@ Object.defineProperties(window, {
           topMenuItems[topMenuLength][6] = topXml[i].attributes.getNamedItem("defaultPage").value;
           topMenuLength++;
         }
-        //加载顶层菜单结束
 
-        //加载一层菜单开始
         var menuXml = tmpxml.getElementsByTagName("Level1Menus")[0].getElementsByTagName("Menu");
         for (i = 0; i < menuXml.length; i++) {
           menuItems[menuLength] = new Array();
@@ -56,9 +35,7 @@ Object.defineProperties(window, {
           menuItems[menuLength][5] = menuXml[i].attributes.getNamedItem("imageUrl").value;
           menuLength++;
         }
-        //加载一层菜单结束
 
-        //加载二层菜单开始
         var linkXml = tmpxml.getElementsByTagName("Level2Menus")[0].getElementsByTagName("Menu");
         for (i = 0; i < linkXml.length; i++) {
           linkItems[linkLength] = new Array();
@@ -70,7 +47,6 @@ Object.defineProperties(window, {
           linkItems[linkLength][5] = linkXml[i].attributes.getNamedItem("imageUrl").value;
           linkLength++;
         }
-        //加载二层菜单结束
       } catch (e) {
         alert("加载编号为" + SystemBh + "的应用系统失败，可能是网络延迟问题！");
       }
