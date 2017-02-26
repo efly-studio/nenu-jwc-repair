@@ -48,7 +48,7 @@ Object.defineProperties(window, {
           linkLength++;
         }
       } catch (e) {
-        alert("加载编号为" + SystemBh + "的应用系统失败，可能是网络延迟问题！");
+        window.location.reload();
       }
     }
   }
