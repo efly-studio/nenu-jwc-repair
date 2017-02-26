@@ -48,7 +48,7 @@ Object.defineProperties(window, {
           linkLength++;
         }
       } catch (e) {
-        window.location.reload();
+        alert('遇到未知问题，请刷新页面')
       }
     }
   }
